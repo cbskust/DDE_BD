@@ -299,8 +299,8 @@ MCMC.summary <- function(result, nrepeat, burn, thin, A = T, B = T, delay = T) {
 # Simulation start!!!
 ################################################
 
-load("YFP1.rda") # YFP experiment data set 1 (40 trajectories ans scaled by JK)
-load("YFP2.rda") # YFP experiment data set 2 (29 trajectories ans scaled by JK)
+load("YFP1.rda") # YFP experiment data set 1 (40 trajectories)
+load("YFP2.rda") # YFP experiment data set 2 (29 trajectories)
 load("YFP1_short.rda") # trancated at T=22 of YFP1
 load("YFP2_short.rda") # trancated at T=22 of YFP2
 
