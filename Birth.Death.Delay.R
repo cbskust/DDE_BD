@@ -86,22 +86,16 @@ BDD <- function(indata, scale = 1, B = 0, nrepeat, tun.B, tun.al, tun.be,
   # This function calculates kappa Eq. (5) and Eq. (6) in Supplement and gamma_k(m, Delta) in page 3.
   # Returning the cumulative sum of kappa: sum_{m=0}^{i}kappa(delta,m) in Eq. (6) in Supplement. 
   # P: shape parameter alpha and rate parameter of beta in gamma delay distribution. 
-  KI <- function(P,ti=time) {
-    a <- P[1]             #shape parameter alpha of gamma distribution in Eq. (5) and Eq. (6) in Supplement 
-    b <- P[2]             #rate parameter beta of gamma distribution in Eq. (5) and Eq. (6) in Supplement .
-    kappa <- rep(0, ti)
-    for (m in 2:ti) {                   #discretized integral kappa(delta, m) of Eq. (5) and Eq. (6) in Supplement 
-      kappa[m] = pgamma((m-0.5),a, rate = b) - pgamma(((m-1)-0.5), a, rate = b)
-    }
-    kappa[1] = pgamma(0.5, a, rate = b)
-    k.j <- rep(1, ti)    # cumulative sum of kappa until i
-    for (m in 1:ti) {
-      k.all <- 0
-      for (j in 1:m) k.all <- k.all + kappa[j]
-      k.j[m] <- k.all
+ KI <- function(P, ti=time){
+    a = P[1];       #shape parameter alpha of gamma distribution in Eq. (5) and Eq. (6) in Supplement  
+    b=P[2];         #rate parameter beta of gamma distribution in Eq. (5) and Eq. (6) in Supplement .
+    f <-function(x) pgamma(x,a,rate=b)
+    k.j = rep(1,ti)
+    for (m in 1:ti){           #discretized integral kappa(delta, m) of Eq. (5) and Eq. (6) in Supplement 
+      k.j[m] = integrate(f,m-1,m)$value
     }
     return(k.j)
-  }
+  }       
   
   
   
