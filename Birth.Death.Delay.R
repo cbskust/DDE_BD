@@ -91,9 +91,9 @@ BDD <- function(indata, scale = 1, B = 0, nrepeat, tun.B, tun.al, tun.be,
     b <- P[2]             #rate parameter beta of gamma distribution in Eq. (5) and Eq. (6) in Supplement .
     kappa <- rep(0, ti)
     for (m in 2:ti) {                   #discretized integral kappa(delta, m) of Eq. (5) and Eq. (6) in Supplement 
-      kappa[m] = pgamma((m-0.5),a, rate = b) - pgamma(((m-1)-0.5), a, rate = b)
+      kappa[m] = pgamma(m,a, rate = b) - pgamma((m-1), a, rate = b)
     }
-    kappa[1] = pgamma(0.5, a, rate = b)
+    kappa[1] = pgamma(1, a, rate = b)
     k.j <- rep(1, ti)    # cumulative sum of kappa until i
     for (m in 1:ti) {
       k.all <- 0
